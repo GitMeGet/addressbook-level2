@@ -2,6 +2,7 @@ package seedu.addressbook.data.person;
 
 import seedu.addressbook.data.exception.IllegalValueException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,6 +55,37 @@ public class Name {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
                 && this.fullName.equals(((Name) other).fullName)); // state check
+    }
+    
+    public boolean isSimilar(Name other){
+    	String myName = this.fullName.toLowerCase();
+    	String theirName = other.fullName.toLowerCase();
+    	
+    	if (myName == null || theirName == null)
+    		return false;
+    	
+    	List<String> myWords = Arrays.asList(myName.split("\\s+"));
+    	List<String> theirWords = Arrays.asList(theirName.split("\\s+"));
+
+    	System.out.println(myWords);
+    	
+    	if (checkIfSameWordOccurs(theirWords, myWords))
+    		return true;
+    	
+    	return false;
+    }
+    
+    boolean checkIfSameWordOccurs(List<String> theirWords, List<String> myWords){
+    	for (String one : theirWords){
+    		for (String two : myWords){
+    			
+    			if (two.equals(one))
+    				return true;
+    			
+    		}
+    	}
+    	
+    	return false;
     }
 
     @Override
